@@ -1,43 +1,43 @@
 export const defaultOpacity = 0.5;
-export const emptyPreset = 'NOFX';
+export const emptyPreset = "NOFX";
 
 const defaultTraitValues = {
     acid: {
-        tint: '#2d8000',
+        tint: "#2d8000",
         opacity: 0.6,
-        preset: 'Watery Surface 2'
+        preset: "Watery Surface 2"
     },
     cold: { 
-        tint: '#47b3ff',
-        preset: 'Thick Fog'
+        tint: "#47b3ff",
+        preset: "Thick Fog"
     },
     electricity: {
-        preset: 'Shock'
+        preset: "Shock"
     },
     fire: {
-        preset: 'Flames'
+        preset: "Flames"
     },
     force: {
-        preset: 'Waves 3'
+        preset: "Waves 3"
     },
     mental: {
-        tint: '#8000ff',
-        preset: 'Classic Rays'
+        tint: "#8000ff",
+        preset: "Classic Rays"
     },
     negative: {
-        tint: '#502673',
-        preset: 'Smoke Filaments'
+        tint: "#502673",
+        preset: "Smoke Filaments"
     },
     poison: {
-        tint: '#00a80b',
-        preset: 'Smoky Area'
+        tint: "#00a80b",
+        preset: "Smoky Area"
     },
     positive: {
-        preset: 'Annihilating Rays'
+        preset: "Annihilating Rays"
     },
     sonic: {
-        tint: '#0060ff',
-        preset: 'Waves'
+        tint: "#0060ff",
+        preset: "Waves"
     }
 };
 
@@ -65,10 +65,10 @@ export class AutoTemplatePF2E {
             categories: {},
             overrides: {
                 0: {
-                    target: 'Stinking Cloud',
+                    target: "Stinking Cloud",
                     opacity: 0.5,
-                    tint: '#00a80b',
-                    preset: 'Smoky Area',
+                    tint: "#00a80b",
+                    preset: "Smoky Area",
                     texture: null,
                 },
                 1: {
@@ -78,10 +78,10 @@ export class AutoTemplatePF2E {
                     preset: "Smoky Area",
                 },
                 2: {
-                    target: 'Web',
+                    target: "Web",
                     opacity: 0.5,
-                    tint: '#808080',
-                    preset: 'Spider Web 2',
+                    tint: "#808080",
+                    preset: "Spider Web 2",
                     texture: null,
                 },
                 3: {
@@ -116,7 +116,7 @@ export class AutoTemplatePF2E {
     }
 
     static getTMFXSettings(origin, templateType) {
-        const settings = game.settings.get('pf2e-tokenmagic', 'autoTemplateSettings');
+        const settings = game.settings.get("pf2e-tokenmagic", "autoTemplateSettings");
         if (!settings) return null;
 
         // Check if this is a name override, if so return that

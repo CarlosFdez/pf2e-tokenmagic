@@ -10,16 +10,16 @@ export class TokenMagicSettingsPF2e extends FormApplication {
     static get defaultOptions() {
         return {
             ...super.defaultOptions,
-            template: 'modules/pf2e-tokenmagic/templates/settings.html',
-            height: 'auto',
-            title: game.i18n.localize('TMFX.settings.autoTemplateSettings.dialog.title'),
+            template: "modules/pf2e-tokenmagic/templates/settings.html",
+            height: "auto",
+            title: game.i18n.localize("TMFX.settings.autoTemplateSettings.dialog.title"),
             width: 600,
-            classes: ['tokenmagic', 'settings'],
+            classes: ["tokenmagic", "settings"],
             tabs: [
                 {
-                    navSelector: '.tabs',
-                    contentSelector: 'form',
-                    initial: 'name',
+                    navSelector: ".tabs",
+                    contentSelector: "form",
+                    initial: "name",
                 },
             ],
             submitOnClose: false,
@@ -28,22 +28,22 @@ export class TokenMagicSettingsPF2e extends FormApplication {
 
     static initializeSettings() {
         const menuAutoTemplateSettings = {
-            key: 'autoTemplateSettings',
+            key: "autoTemplateSettings",
             config: {
-                name: game.i18n.localize('TMFX.settings.autoTemplateSettings.button.name'),
-                label: game.i18n.localize('TMFX.settings.autoTemplateSettings.button.label'),
-                hint: game.i18n.localize('TMFX.settings.autoTemplateSettings.button.hint'),
+                name: game.i18n.localize("TMFX.settings.autoTemplateSettings.button.name"),
+                label: game.i18n.localize("TMFX.settings.autoTemplateSettings.button.label"),
+                hint: game.i18n.localize("TMFX.settings.autoTemplateSettings.button.hint"),
                 type: TokenMagicSettingsPF2e,
                 restricted: true,
             },
         };
     
         const settingAutoTemplateSettings = {
-            key: 'autoTemplateSettings',
+            key: "autoTemplateSettings",
             config: {
-                name: game.i18n.localize('TMFX.settings.autoTemplateSettings.name'),
-                hint: game.i18n.localize('TMFX.settings.autoTemplateSettings.hint'),
-                scope: 'world',
+                name: game.i18n.localize("TMFX.settings.autoTemplateSettings.name"),
+                hint: game.i18n.localize("TMFX.settings.autoTemplateSettings.hint"),
+                scope: "world",
                 config: false,
                 default: {},
                 type: Object,
@@ -52,7 +52,7 @@ export class TokenMagicSettingsPF2e extends FormApplication {
     
         // Add some settings to token magic that it normally filters out for games other than 5e. We reuse the
         // language settings from token magic as well
-        game.settings.registerMenu('pf2e-tokenmagic', menuAutoTemplateSettings.key, menuAutoTemplateSettings.config);
+        game.settings.registerMenu("pf2e-tokenmagic", menuAutoTemplateSettings.key, menuAutoTemplateSettings.config);
         game.settings.register(
             "pf2e-tokenmagic",
             settingAutoTemplateSettings.key,
@@ -69,8 +69,8 @@ export class TokenMagicSettingsPF2e extends FormApplication {
     activateListeners($html) {
         super.activateListeners($html);
 
-        $html.find('button.add-override').click(this._onAddOverride.bind(this));
-        $html.find('button.remove-override').click(this._onRemoveOverride.bind(this));
+        $html.find("button.add-override").click(this._onAddOverride.bind(this));
+        $html.find("button.remove-override").click(this._onRemoveOverride.bind(this));
 
         $html.find("[data-action='reset']").on("click", async (event) => {
             event.preventDefault();
@@ -81,7 +81,7 @@ export class TokenMagicSettingsPF2e extends FormApplication {
             
             if (result) {
                 const value = AutoTemplatePF2E.defaultConfiguration;
-                await game.settings.set('pf2e-tokenmagic', "autoTemplateSettings", value);
+                await game.settings.set("pf2e-tokenmagic", "autoTemplateSettings", value);
                 this.render(true);
             }
         });
@@ -107,9 +107,9 @@ export class TokenMagicSettingsPF2e extends FormApplication {
         data.system = {id: game.system.id, title: game.system.data.title};
         data.settings = {
             autoTemplateEnable: true,
-            autoTemplateSettings: game.settings.get('pf2e-tokenmagic', 'autoTemplateSettings'),
+            autoTemplateSettings: game.settings.get("pf2e-tokenmagic", "autoTemplateSettings"),
         }
-        data.submitText = game.i18n.localize('TMFX.save');
+        data.submitText = game.i18n.localize("TMFX.save");
         return data;
     }
 
@@ -117,25 +117,25 @@ export class TokenMagicSettingsPF2e extends FormApplication {
     async _updateObject(_, formData) {
         const data = expandObject(formData);
         for (let [key, value] of Object.entries(data)) {
-            if (key == 'autoTemplateSettings' && value.overrides) {
+            if (key == "autoTemplateSettings" && value.overrides) {
                 const compacted = {};
                 Object.values(value.overrides).forEach((val, idx) => compacted[idx] = val);
                 value.overrides = compacted;
             }
-            await game.settings.set('pf2e-tokenmagic', key, value);
+            await game.settings.set("pf2e-tokenmagic", key, value);
         }
     }
     
     async _onAddOverride(event) {
         event.preventDefault();
         let idx = 0;
-        const entries = event.target.closest('div.tab').querySelectorAll('div.override-entry');
+        const entries = event.target.closest("div.tab").querySelectorAll("div.override-entry");
         const last = entries[entries.length - 1];
         if (last) {
             idx = last.dataset.idx + 1;
         }
         let updateData = {}
-        updateData[`autoTemplateSettings.overrides.${idx}.target`] = '';
+        updateData[`autoTemplateSettings.overrides.${idx}.target`] = "";
         updateData[`autoTemplateSettings.overrides.${idx}.opacity`] = defaultOpacity;
         updateData[`autoTemplateSettings.overrides.${idx}.tint`] = null;
         updateData[`autoTemplateSettings.overrides.${idx}.preset`] = emptyPreset;

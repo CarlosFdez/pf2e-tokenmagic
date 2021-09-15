@@ -71,8 +71,8 @@ Hooks.on("init", () => {
     }
 
     loadTemplates([
-        'modules/pf2e-tokenmagic/templates/settings.html',
-        'modules/pf2e-tokenmagic/templates/categories.html',
-        'modules/pf2e-tokenmagic/templates/overrides.html',
+        "modules/pf2e-tokenmagic/templates/settings.html",
+        "modules/pf2e-tokenmagic/templates/categories.html",
+        "modules/pf2e-tokenmagic/templates/overrides.html",
     ]);
 });
