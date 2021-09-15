@@ -51,6 +51,7 @@ Hooks.on("createMeasuredTemplate", async (template, data) => {
 });
 Hooks.on("init", () => {
     TokenMagicSettingsPF2e.initializeSettings();
+    globalThis.TokenMagicSettingsPF2e = TokenMagicSettingsPF2e;
 
     // Override of getCircleShape() to approximate the correct size for template visualization
     CONFIG.MeasuredTemplate.objectClass.prototype._getCircleShape = function(distance) {

@@ -72,13 +72,19 @@ export class AutoTemplatePF2E {
                     texture: null,
                 },
                 1: {
+                    target: "Sanguine Mist",
+                    opacity: 0.6,
+                    tint: "#c41212",
+                    preset: "Smoky Area",
+                },
+                2: {
                     target: 'Web',
                     opacity: 0.5,
                     tint: '#808080',
                     preset: 'Spider Web 2',
                     texture: null,
                 },
-                2: {
+                3: {
                     target: "Incendiary Aura",
                     opacity: 0.2,
                     tint: "#b12910",
@@ -124,11 +130,13 @@ export class AutoTemplatePF2E {
             return nameConfig;
         }
 
-        // Now do traits matching
+        // Now do traits matching, and merge newer stuff as higher priority
         const traits = new Set(origin.traits ?? []);
         const config = {};
         for (const [trait, value] of Object.entries(settings.categories ?? {})) {
             if (!traits.has(trait)) continue;
+            const { opacity, tint } = value;
+            mergeObject(config, removeFalsyEntries({ opacity, tint }));
             const data = value[templateType];
             if (data) {
                 mergeObject(config, removeFalsyEntries(data));

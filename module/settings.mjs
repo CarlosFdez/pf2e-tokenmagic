@@ -62,6 +62,10 @@ export class TokenMagicSettingsPF2e extends FormApplication {
         );
     }
 
+    static getTMFXSettings(origin, templateType) {
+        return AutoTemplatePF2E.getTMFXSettings(origin, templateType);
+    }
+
     activateListeners($html) {
         super.activateListeners($html);
 
