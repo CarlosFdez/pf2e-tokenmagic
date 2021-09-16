@@ -45,7 +45,7 @@ export class TokenMagicSettingsPF2e extends FormApplication {
                 hint: game.i18n.localize("TMFX.settings.autoTemplateSettings.hint"),
                 scope: "world",
                 config: false,
-                default: {},
+                default: AutoTemplatePF2E.defaultConfiguration,
                 type: Object,
             },
         };
@@ -56,10 +56,12 @@ export class TokenMagicSettingsPF2e extends FormApplication {
         game.settings.register(
             "pf2e-tokenmagic",
             settingAutoTemplateSettings.key,
-            mergeObject(settingAutoTemplateSettings.config, {
-                default: AutoTemplatePF2E.defaultConfiguration
-            }, true, true),
+            settingAutoTemplateSettings.config
         );
+    }
+
+    static get handler() {
+        return AutoTemplatePF2E;
     }
 
     static getTMFXSettings(origin, templateType) {
@@ -107,7 +109,7 @@ export class TokenMagicSettingsPF2e extends FormApplication {
         data.system = {id: game.system.id, title: game.system.data.title};
         data.settings = {
             autoTemplateEnable: true,
-            autoTemplateSettings: game.settings.get("pf2e-tokenmagic", "autoTemplateSettings"),
+            autoTemplateSettings: AutoTemplatePF2E.settings,
         }
         data.submitText = game.i18n.localize("TMFX.save");
         return data;
