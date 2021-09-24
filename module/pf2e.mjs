@@ -1,5 +1,4 @@
 export const defaultOpacity = 0.5;
-export const emptyPreset = "NOFX";
 
 const defaultTraitValues = {
     acid: {
@@ -74,7 +73,7 @@ const defaultOverrides = [
 function removeFalsyEntries(object) {
     const result = {};
     for (const [key, value] of Object.entries(object)) {
-        if (value) result[key] = value;
+        if (value && value !== "NOFX") result[key] = value;
     }
     return result;
 }
@@ -108,7 +107,7 @@ export class AutoTemplatePF2E {
                 defaultConfig.categories[dmgType] = config;
             }
             Object.keys(CONFIG.MeasuredTemplate.types).forEach((tplType) => {
-                const config = {preset: emptyPreset, texture: null}
+                const config = {preset: null, texture: null}
                 config.preset = values?.preset ?? config.preset;
                 defaultConfig.categories[dmgType][tplType] = config;
             });

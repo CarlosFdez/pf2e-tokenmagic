@@ -64,7 +64,7 @@ Hooks.on("init", () => {
         const gridTopLeft = canvas.grid.getTopLeft(this.data.x, this.data.y);
         const isBurst = gridTopLeft[0] === this.data.x && gridTopLeft[1] === this.data.y;
         if (isBurst) {
-            return new PIXI.Circle(0, 0, distance - (canvas.dimensions.size * 0.3));
+            return new PIXI.Circle(0, 0, distance - (canvas.dimensions.size * 0.26));
         }
 
         return new PIXI.Circle(0, 0, distance);

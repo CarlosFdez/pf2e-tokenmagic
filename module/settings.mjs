@@ -1,4 +1,4 @@
-import { emptyPreset, defaultOpacity, AutoTemplatePF2E } from "./pf2e.mjs";
+import { defaultOpacity, AutoTemplatePF2E } from "./pf2e.mjs";
 
 export const PresetsLibrary = {
     MAIN: "tmfx-main",
@@ -93,7 +93,7 @@ export class TokenMagicSettingsPF2e extends FormApplication {
     getData() {
         let data = super.getData();
         data.hasAutoTemplates = false;
-        data.emptyPreset = emptyPreset;
+        data.emptyPreset = null;
 
         mergeObject(data, {
             hasAutoTemplates: true,
@@ -140,7 +140,7 @@ export class TokenMagicSettingsPF2e extends FormApplication {
         updateData[`autoTemplateSettings.overrides.${idx}.target`] = "";
         updateData[`autoTemplateSettings.overrides.${idx}.opacity`] = defaultOpacity;
         updateData[`autoTemplateSettings.overrides.${idx}.tint`] = null;
-        updateData[`autoTemplateSettings.overrides.${idx}.preset`] = emptyPreset;
+        updateData[`autoTemplateSettings.overrides.${idx}.preset`] = null;
         updateData[`autoTemplateSettings.overrides.${idx}.texture`] = null;
         await this._onSubmit(event, {updateData: updateData, preventClose: true});
         this.render();
