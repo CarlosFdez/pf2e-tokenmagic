@@ -4,14 +4,14 @@ import { PresetsLibrary } from "./settings.mjs";
 
 Hooks.on("createMeasuredTemplate", async (template, data) => {
     // Ensure this is the owner, so we don't get multi-template updates
-    if (template.data.user !== game.user.id) {
+    if (template.user.id !== game.user.id) {
         return;
     }
     
-    const tokenMagicSet = !!template.data.flags.tokenmagic?.preset;
-    const origin = template.data.flags.pf2e?.origin;
+    const tokenMagicSet = !!template.flags.tokenmagic?.preset;
+    const origin = template.flags.pf2e?.origin;
     if (!tokenMagicSet && origin) {
-        const config = AutoTemplatePF2E.getTMFXSettings(origin, template.data.t);
+        const config = AutoTemplatePF2E.getTMFXSettings(origin, template.t);
         if (!config) return;
 
         console.log(config);
@@ -44,7 +44,7 @@ Hooks.on("createMeasuredTemplate", async (template, data) => {
             updateData.texture = TokenMagic._getPresetTemplateDefaultTexture(config.preset);
         }
 
-        if (!isObjectEmpty(updateData)) {
+        if (!foundry.utils.isEmpty(updateData)) {
             await template.update(updateData);
         }
     }
@@ -55,14 +55,14 @@ Hooks.on("init", () => {
 
     // Override of getCircleShape() to approximate the correct size for template visualization
     CONFIG.MeasuredTemplate.objectClass.prototype._getCircleShape = function(distance) {
-        const gridCenter = canvas.grid.getCenter(this.data.x, this.data.y);
-        const isEmanation = gridCenter[0] === this.data.x && gridCenter[1] === this.data.y;
+        const gridCenter = canvas.grid.getCenter(this.x, this.y);
+        const isEmanation = gridCenter[0] === this.x && gridCenter[1] === this.y;
         if (isEmanation) {
             return new PIXI.Circle(0, 0, distance + (canvas.dimensions.size / 2));
         }
 
-        const gridTopLeft = canvas.grid.getTopLeft(this.data.x, this.data.y);
-        const isBurst = gridTopLeft[0] === this.data.x && gridTopLeft[1] === this.data.y;
+        const gridTopLeft = canvas.grid.getTopLeft(this.x, this.y);
+        const isBurst = gridTopLeft[0] === this.x && gridTopLeft[1] === this.y;
         if (isBurst) {
             return new PIXI.Circle(0, 0, distance - (canvas.dimensions.size * 0.26));
         }

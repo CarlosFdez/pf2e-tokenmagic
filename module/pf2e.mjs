@@ -152,7 +152,7 @@ export class AutoTemplatePF2E {
             }
         }
 
-        if (isObjectEmpty(config)) return null;
+        if (foundry.utils.isEmpty(config)) return null;
 
         mergeObject(config, { opacity: defaultOpacity }, { overwrite: false });
         //mergeObject(config, {opacity: dmgSettings.opacity, tint: dmgSettings.tint}, true, true);
